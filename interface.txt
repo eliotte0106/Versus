@@ -1,0 +1,470 @@
+SignIn
+    -request {
+        *email: String,
+        *password: String,
+        token: JWT
+        expiredDate: Int
+    }
+    -response{ 
+        -login success
+        http status: 200 {
+            code: String,
+            message: String
+        }
+        -login error
+        http status: 401 {
+            code: String,
+            message: String
+        }
+        -database error
+        http status: 500 {
+            code: String,
+            message: String
+        }
+    }
+
+SignUp
+    -request {
+        *email: String,
+        *password: String,
+        *username: String,
+        *phone: String,
+        address: String
+    }
+    -response {
+        -signup success
+        http status: 200 {
+            code: String,
+            message: String
+        }
+        -signup fail {
+            -duplicate email, password length, email format, number format
+            http status: 400 {
+            code: String,
+            message: String
+            }
+            -database error
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+WeeklyTop3List
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            top3List: boardListItem[],
+            boardListItem {
+                boardNum: Int,
+                title: String,
+                content: String,
+                boardTitleImage: String,
+                favoriteCount: Int,
+                commentCount: Int,
+                viewCount: Int,
+                writeDateTime: String,
+                writerUsername: String,
+                writerProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+CurrentList(RecentList)
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            currentList: boardListItem[],
+            boardListItem {
+                boardNum: Int,
+                title: String,
+                content: String,
+                boardTitleImage: String,
+                favoriteCount: Int,
+                commentCount: Int,
+                viewCount: Int,
+                writeDateTime: String,
+                writerUsername: String,
+                writerProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+PopularWordList
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            popularWordList: String[]
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+SearchList
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            searchList: boardListItem[],
+            boardListItem {
+                boardNum: Int,
+                title: String,
+                content: String,
+                boardTitleImage: String,
+                favoriteCount: Int,
+                commentCount: Int,
+                viewCount: Int,
+                writeDateTime: String,
+                writerUsername: String,
+                writerProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+RelativeWordList
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            relativeWordList: String[]
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+BoardDetail
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            boardList: boardListItem[],
+            boardListItem {
+                boardNum: Int,
+                title: String,
+                content: String,
+                boardTitleImage: String,
+                favoriteCount: Int,
+                commentCount: Int,
+                viewCount: Int,
+                writeDateTime: String,
+                writerUsername: String,
+                writerProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+FavoriteList
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            favoriteList: favoriteListItem[],
+            favoriteListItem {
+                email: String,
+                username: String,
+                userProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+PutFavorite
+    -request {
+        boardNum: Int
+    }
+    -response {
+        -success
+        http status: 200 {
+            code: String,
+            message: String
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+CommentList
+    http status: 200 {
+        code: String,
+        message: String
+    }
+    CommentListItem {
+        email: String,
+        username: String,
+        writeDateTime: String,
+        content: String
+    }
+    -database error
+    http status: 500 {
+        code: String,
+        message: String
+    }
+    
+PostComment
+    -request {
+        content: String
+    }
+    -success
+    http status: 200 {
+    code: String,
+    message: String
+    }
+    -fail
+    -database error
+    http status: 500 {
+        code: String,
+        message: String
+    }
+    -no user
+    http status: 400 {
+        code: String,
+        message: String
+    }
+
+BoardEdit
+    -request {
+        content: String
+    }
+    -response
+    -success
+    http status: 200 {
+    code: String,
+    message: String
+    }
+    -fail
+    -database error
+    http status: 500 {
+        code: String,
+        message: String
+    }
+    -no user/no board
+    http status: 400 {
+        code: String,
+        message: String
+    }
+    -Forbidden
+    http status: 403 {
+        code: String,
+        message: String
+    }
+
+BoardDelete
+    -request {
+        *title: String,
+        *content: String,
+        boardImageList: String[]
+    }
+    -response {
+        -success
+        http status: 200 {
+        code: String,
+        message: String
+        }
+        -fail
+        -database error
+        http status: 500 {
+            code: String,
+            message: String
+        }
+        -no user/no board
+        http status: 400 {
+            code: String,
+            message: String
+        }
+        -Forbidden
+        http status: 403 {
+            code: String,
+            message: String
+        }
+    }
+
+BoardWrite
+    -request {
+        *title: String,
+        *content: String,
+        boardImageList: String[]
+    }
+    -response {
+        -success
+        http status: 200 {
+        code: String,
+        message: String
+        }
+        -fail
+        -database error
+        http status: 500 {
+            code: String,
+            message: String
+        }
+        -no user/no board
+        http status: 400 {
+            code: String,
+            message: String
+        }
+        -Forbidden
+        http status: 403 {
+            code: String,
+            message: String
+        }
+    }
+
+UserInfo
+    -response {
+        -success
+        http status: 200 {
+        code: String,
+        message: String,
+        email: String,
+        username: String,
+        userProfileImage: String
+
+        -fail
+        -database error
+        http status: 500 {
+            code: String,
+            message: String
+        }
+        -no user/no board
+        http status: 400 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+UserBoardList
+    -response {
+        -success 
+        http status: 200 {
+            code: String,
+            message: String,
+            boardList: boardListItem[],
+            boardListItem {
+                boardNum: Int,
+                title: String,
+                content: String,
+                boardTitleImage: String,
+                favoriteCount: Int,
+                commentCount: Int,
+                viewCount: Int,
+                writeDateTime: String,
+                writerUsername: String,
+                writerProfileImage: String
+            }
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+    }
+
+patchUserName
+    -request {
+        userName: String
+    }
+    -response
+        -success 
+        http status: 200 {
+            code: String,
+            message: String
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+        -no user/no board
+        http status: 400 {
+            code: String,
+            message: String
+        }
+
+patchUserProfileImage
+    -request {
+        userProfileImage: String
+    }
+    -response
+        -success 
+        http status: 200 {
+            code: String,
+            message: String
+        }
+        -fail
+        -database error {
+            http status: 500 {
+            code: String,
+            message: String
+            }
+        }
+        -no user/no board
+        http status: 400 {
+            code: String,
+            message: String
+        }
+
+FileUpload
+FileInfo
