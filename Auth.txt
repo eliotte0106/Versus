@@ -1,0 +1,33 @@
+Basic Authentication
+    - Username / encode password into base64 in Authorization header
+    - Not secure, SSL/TLS
+    - Authorization: Basic ~~~
+
+Bearer Token Authentication
+    - Include a token in the Authorization header
+    - JWT
+    - Simple, scalability
+    - Risk of Token exposure, token management
+    - Authorization: Bearer ~~~
+
+OAuth
+    - Token based, pre-Authentication token and request API OAuth 2.0
+    - Git, Facebook
+
+API Key / Session based Authentication
+
+JWT(JSON WEB TOKEN): Token to transer the data called calim as JSON format
+    - Authentication, data transfer, trusted
+    1. header: Info of token type and algorithm, base64url encoding
+    2. Payload: Claim info, client, creator, expirationdate, base64url
+    3. Signature: Header&Payload, signautre with secret key
+
+    Pros
+    1. Status remain X
+    2. Simple, self-included
+    3. Scalability
+
+    Cons
+    1. Size: The more claim, the bigger the Token
+    2. Security: Signature exists but not encrypted so sensitive info should not be included in JWT
+    3. Token management: Expirationdate
