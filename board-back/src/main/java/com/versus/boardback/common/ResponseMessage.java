@@ -1,6 +1,6 @@
 package com.versus.boardback.common;
 
-public class ResponseMessage {
+public interface ResponseMessage {
     // HTTP Status 200
     String SUCCESS = "Success."; // Same as public static final String SUCCESS = "SU"; since inferface
     // HTTP Status 400
