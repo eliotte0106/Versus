@@ -8,5 +8,5 @@ export default interface BoardListItem {
     viewCount: number;
     writeDatetime: string;
     writerUsername: string;
-    writerProfileImage: string;
+    writerProfileImage: string | null;
 }
