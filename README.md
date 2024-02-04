@@ -1,7 +1,11 @@
-Web App
+# Web app
 
+## Description
+    - Social Media based Web App that users can share photos, thoughts, and more through the app
+    - Users can interact with each other through posts they create
+    - In process
 
-* Tech Stack
+## Tech Stack
     - Front
         - Typescript
         - React
@@ -11,11 +15,11 @@ Web App
         - Rest API
         - GraphQL
 
-* API Setup Design
+## API Setup Design
     - https://www.notion.so/API-efcaa93524be4d25b10b54cce638ebc3
 
-* DB Setup
+## DB Setup
     - stored locally (Postgresql, Mysql)
 
-* System Design
+## System Design
     - In process
